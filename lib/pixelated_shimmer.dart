@@ -1,7 +1,3 @@
-import 'dart:async';
-import 'dart:ui' as ui;
-
-import 'package:flutter/foundation.dart'; // For compute
 import 'package:flutter/material.dart';
 import 'package:pixelated_shimmer/pixelated_painter.dart';
 import 'package:pixelated_shimmer/pixelation_utils.dart';
