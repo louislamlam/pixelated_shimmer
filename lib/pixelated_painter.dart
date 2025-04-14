@@ -117,13 +117,16 @@ class PixelatedPainter extends CustomPainter {
         : 1.0;
 
     // 4. Draw Blocks Using Interpolated Colors
-    if (_currentBlockColors == null || _previousBlockColors == null)
+    if (_currentBlockColors == null || _previousBlockColors == null) {
       return; // Should not happen if initialized correctly
+    }
 
     for (int i = 0; i < pixelationData.length; i++) {
       // Ensure index is valid for color lists (safety check)
-      if (i >= _currentBlockColors!.length || i >= _previousBlockColors!.length)
+      if (i >= _currentBlockColors!.length ||
+          i >= _previousBlockColors!.length) {
         continue;
+      }
 
       final block = pixelationData[i];
       final Rect clippedRect = block.rect.intersect(Offset.zero & size);

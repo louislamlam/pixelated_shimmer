@@ -36,8 +36,9 @@ class PixelationComputeData {
 List<PixelationBlock> computePixelationData(PixelationComputeData data) {
   final List<PixelationBlock> blocks = [];
   final int pixelSizeInt = data.pixelSize.round();
-  if (pixelSizeInt <= 0)
+  if (pixelSizeInt <= 0) {
     return blocks; // Avoid division by zero or infinite loops
+  }
 
   try {
     // Decode the image using the image library

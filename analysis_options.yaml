@@ -1,0 +1,19 @@
+# This file configures the Dart static analysis tool.
+# Visit https://dart.dev/guides/language/analysis-options for more information.
+
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  # Add additional rules or override rules here.
+  # See: https://dart-lang.github.io/linter/lints/index.html
+  rules:
+    # Example: enable a specific rule
+    # prefer_const_constructors: true
+
+    # Example: disable a specific rule
+    # avoid_print: false
+# You can also specify files and directories to exclude from analysis
+# analyzer:
+#   exclude:
+#     - 'path/to/excluded/file.dart'
+#     - 'path/to/excluded/directory/**'
