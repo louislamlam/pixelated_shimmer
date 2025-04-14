@@ -90,9 +90,7 @@ class _PixelatedShimmerState extends State<PixelatedShimmer>
   // State variables
   ImageStream? _imageStream;
   ImageInfo? _loadedImageInfo;
-  List<PixelationBlock>? _pixelationData;
   Object? _error;
-  bool _isComputingPixelation = false;
   bool _isImageProviderResolved = false;
 
   // Animation controllers
@@ -195,9 +193,7 @@ class _PixelatedShimmerState extends State<PixelatedShimmer>
         ImageStreamListener(_handleImageFrame, onError: _handleError));
     setState(() {
       _loadedImageInfo = null;
-      _pixelationData = null;
       _error = null;
-      _isComputingPixelation = false;
       _isImageProviderResolved = false;
       _fadeController.reset(); // Reset fade animation
       // _dependenciesInitialized remains true, but we need to resolve again
@@ -216,12 +212,7 @@ class _PixelatedShimmerState extends State<PixelatedShimmer>
       _isImageProviderResolved = true; // Mark as resolved
     });
 
-    // Start computing pixelation data in an isolate
-    _computePixelation(imageInfo.image);
-
-    // Start fade-in animation *after* the pixelation is likely visible
-    // A small delay might be good, or start it once pixelation data is ready.
-    // For simplicity, start it now. It won't be visible until opacity > 0.
+    // Start fade-in animation
     _fadeController.forward();
   }
 
@@ -231,58 +222,10 @@ class _PixelatedShimmerState extends State<PixelatedShimmer>
     setState(() {
       _error = error;
       _loadedImageInfo = null; // Ensure no image is shown
-      _pixelationData = null; // Clear pixelation
-      _isComputingPixelation = false;
       _isImageProviderResolved = true; // Mark as resolved (with error)
     });
     // Optionally log the error
     // print("PixelatedImageShimmer Error: $error");
-  }
-
-  /// Computes the pixelation data using an isolate.
-  Future<void> _computePixelation(ui.Image image) async {
-    if (!mounted || _isComputingPixelation)
-      return; // Don't recompute if already running
-
-    setState(() {
-      _isComputingPixelation = true;
-    });
-
-    try {
-      // Get raw image data (RGBA format is common)
-      final ByteData? byteData = await image.toByteData(
-          format: ui.ImageByteFormat.rawRgba); // Use rawRgba for image package
-      if (byteData == null || !mounted)
-        return; // Handle null byteData or disposed widget
-
-      // Prepare data for the isolate
-      final computeData = PixelationComputeData(
-        byteData: byteData.buffer.asUint8List(), // Send bytes
-        imageWidth: image.width,
-        imageHeight: image.height,
-        pixelSize: widget.pixelSize,
-      );
-
-      // Run computation in an isolate
-      final List<PixelationBlock>? result =
-          await compute(computePixelationData, computeData);
-
-      // Update state only if the widget is still mounted
-      if (mounted) {
-        setState(() {
-          _pixelationData = result;
-          _isComputingPixelation = false;
-        });
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _error = e; // Store computation error
-          _isComputingPixelation = false;
-        });
-        // print("Pixelation Computation Error: $e\n$stack");
-      }
-    }
   }
 
   @override
