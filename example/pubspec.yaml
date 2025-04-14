@@ -1,0 +1,20 @@
+name: pixelated_shimmer_example
+description: Demonstrates how to use the pixelated_shimmer package.
+publish_to: "none" # Prevent accidental publishing
+
+environment:
+  sdk: ">=3.0.0 <4.0.0" # Match your main package or be compatible
+
+dependencies:
+  flutter:
+    sdk: flutter
+  pixelated_shimmer:
+    path: ../ # Reference the main package
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true

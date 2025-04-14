@@ -1,0 +1,46 @@
+# Flutter
+# ---------
+.metadata
+.packages
+pubspec.lock
+
+# If you use Flutter
+build/
+ios/
+android/
+web/
+linux/
+macos/
+windows/
+
+# Dart
+# -------
+.dart_tool/
+.pub-cache/
+
+# IDE specific files - VSCode
+# --------------------------
+.vscode/
+
+# IDE specific files - IntelliJ / Android Studio
+# ----------------------------------------------
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# IDE specific files - Emacs
+# --------------------------
+*~
+\#*\#
+.#*
+
+# IDE specific files - Vim
+# --------------------------
+*.swp
+*.swo
+
+# OS specific files
+# -----------------
+.DS_Store
+Thumbs.db
