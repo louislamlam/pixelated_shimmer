@@ -43,7 +43,7 @@ List<PixelationBlock> computePixelationData(PixelationComputeData data) {
   try {
     // Decode the image using the image library
     // Assuming RGBA format from ui.Image.toByteData(format: ui.ImageByteFormat.rawRgba)
-    final img_lib.Image? decodedImage = img_lib.Image.fromBytes(
+    final img_lib.Image? image = img_lib.Image.fromBytes(
       width: data.imageWidth,
       height: data.imageHeight,
       bytes: data.byteData.buffer, // Use the buffer
@@ -51,11 +51,10 @@ List<PixelationBlock> computePixelationData(PixelationComputeData data) {
       numChannels: 4, // RGBA
     );
 
-    // Handle decoding failure immediately
-    if (decodedImage == null) {
+    if (image == null) {
+      // Handle decoding failure if necessary
       return blocks;
     }
-    final img_lib.Image image = decodedImage; // Now non-nullable
 
     // Iterate through the image in blocks
     for (int y = 0; y < data.imageHeight; y += pixelSizeInt) {
@@ -77,7 +76,6 @@ List<PixelationBlock> computePixelationData(PixelationComputeData data) {
         // Iterate over pixels within the block using image library
         for (int py = y; py < blockEndY; py++) {
           for (int px = x; px < blockEndX; px++) {
-            // ignore: unnecessary_nullable_for_final_variable_declarations
             final img_lib.Pixel? pixel = image.getPixelSafe(px, py);
             if (pixel != null) {
               totalR += pixel.r.toInt();
