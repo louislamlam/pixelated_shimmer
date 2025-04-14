@@ -43,7 +43,7 @@ List<PixelationBlock> computePixelationData(PixelationComputeData data) {
   try {
     // Decode the image using the image library
     // Assuming RGBA format from ui.Image.toByteData(format: ui.ImageByteFormat.rawRgba)
-    img_lib.Image? decodedImage = img_lib.Image.fromBytes(
+    final img_lib.Image? decodedImage = img_lib.Image.fromBytes(
       width: data.imageWidth,
       height: data.imageHeight,
       bytes: data.byteData.buffer, // Use the buffer
