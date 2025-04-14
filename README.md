@@ -5,6 +5,10 @@
 
 > A Dart package providing utilities or widgets for pixelated shimmer effects.
 
+**Demo**
+
+![Pixelated Shimmer Demo](./assets/screenshot.gif)
+
 ## Features
 
 - Displays images with a pixelated reveal effect.

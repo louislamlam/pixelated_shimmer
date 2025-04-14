@@ -1,6 +1,6 @@
 name: pixelated_shimmer
 description: A Dart package providing utilities or widgets for pixelated shimmer effects.
-version: 0.0.1
+version: 0.0.2
 repository: https://github.com/louislamlam/pixelated_shimmer
 
 environment:
